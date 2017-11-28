@@ -7,7 +7,24 @@ and open the template in the editor.
     Created on : 27/11/2017, 20:46:36
     Author     : vitor_gja_
 */
-
+:root{
+    font-size: 14px;
+    font-family: arial;
+}
 body{
+    margin: 0;
+    padding: 0;
     background-color: #ccc;
+}
+
+body header#top,
+body footer#bottom{
+    padding: 3rem 5rem;
+}
+
+
+.well {
+    background: #ccc;
+    border: 1px solid #ddd;
+    padding: 3rem 5rem;
 }

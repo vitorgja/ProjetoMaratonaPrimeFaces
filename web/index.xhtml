@@ -1,10 +1,68 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./_template.xhtml">
+                template="./_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        content sdf
+        
+        <div class="well">
+            <h3>Login</h3>
+            <h:form>
+                
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                            <p:inputText placeholder="Username" value="#{usuarioBean.login}"/>      
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon">$</span>
+                            <p:inputText placeholder="Senha"  value="#{usuarioBean.senha}"/>  
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="ui-inputgroup">
+                            <p:commandButton ajax="false" icon="ui-icon-disk" value="Logar" action="#{usuarioBean.logar}"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+        
+        <p:spinner />
+        
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">3</div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">3</div>
+        </div> 
+       
+        <p:panelGrid columns="2">
+            <f:facet name="header">
+                <p:graphicImage name="demo/images/misc/kobe.png" />
+            </f:facet>
+
+            <h:outputText value="Name:" />
+            <h:outputText value="Kobe Bryant" />
+
+            <h:outputText value="Team:" />
+            <h:outputText value="Los Angeles Lakers" />
+
+            <h:outputText value="Position:" />
+            <h:outputText value="Shooting Guard" />
+
+            <h:outputText value="Number:" />
+            <h:outputText value="24" />
+        </p:panelGrid>
+
     </ui:define>
 
 </ui:composition>
