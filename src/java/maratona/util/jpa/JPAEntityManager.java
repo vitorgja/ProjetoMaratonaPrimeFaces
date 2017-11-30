@@ -10,7 +10,7 @@ public class JPAEntityManager {
    public static EntityManager getEntityManager() {
       if (emf == null) {
          emf = Persistence.
-              createEntityManagerFactory("financasPU");
+              createEntityManagerFactory("ProjetoMaratonaPrimeFacesPU");
       }
       return emf.createEntityManager();
    }

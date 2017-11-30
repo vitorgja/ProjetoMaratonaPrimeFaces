@@ -15,6 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
 
+import maratona.dao.DAO;
+import maratona.entity.Usuario;
 /**
  *
  * @author vitor_gja_
@@ -51,11 +53,15 @@ public class UsuarioBean implements Serializable {
     
     
     public String logar(){
-        
-        if( "vitor".equals(login) && "vitor".equals(senha) ){
+       
+        DAO dao = new DAO(Usuario.class);
+        int size = dao.listarGenerico("Usuario.logar", login, senha).size();
+        if( size == 0 ){
+            return "/";
+        }else if( size >= 1 ){
             return "/sistema/usuario";
         }else{
-            return "/";
-        } 
+            return "/error/999";
+        }
     }
 }
