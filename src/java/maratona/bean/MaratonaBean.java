@@ -85,4 +85,8 @@ public class MaratonaBean implements Serializable {
         return "/index";
     }
 
+    public String paginaNovoUsuario() {
+        usuario = new Usuario();
+        return "/novo_usuario";
+    }
 }
