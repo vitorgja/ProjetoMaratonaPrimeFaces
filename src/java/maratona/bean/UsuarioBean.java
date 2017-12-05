@@ -5,20 +5,20 @@
  */
 package maratona.bean;
 
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import org.primefaces.event.RowEditEvent;
-import maratona.session.SessionContext;
-
-
+import javax.faces.model.SelectItem;
 import maratona.dao.DAO;
+import maratona.entity.NivelUsuario;
 import maratona.entity.Usuario;
+import org.primefaces.event.RowEditEvent;
+
 /**
  *
  * @author vitor_gja_
@@ -26,52 +26,111 @@ import maratona.entity.Usuario;
 @Named(value = "usuarioBean")
 @SessionScoped
 public class UsuarioBean implements Serializable {
-    /* Global Vars */
-    private Usuario usuario;
-    private String login;
-    private String senha;
-  
-    /* Getters and Setters */
-    public String getLogin() { return login; }
-    public void setLogin(String login) { this.login = login; }
-    public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
+    /**
+     * Variable
+     * Get
+     * Set
+     */
+    private Usuario usuario = new Usuario();
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    
+    private List<Usuario> usuarios = new ArrayList();
+    public List<Usuario> getUsuarios() { return usuarios; }
+    public void setUsuarios(List<Usuario> usuarios) { this.usuarios = usuarios; }
+    
+    private List<Usuario> usuariosFiltrados = new ArrayList();
+    public List<Usuario> getUsuariosFiltrados() { return usuariosFiltrados; }
+    public void setUsuariosFiltrados(List<Usuario> usuariosFiltrados) { this.usuariosFiltrados = usuariosFiltrados; }
     
     /**
-     * Creates a new instance of UsuarioBean
+     * Creates a new instance of MaratonaBean
      */
-    public UsuarioBean() { }
+    public UsuarioBean() {
+        carregarUsuarios();
+    }
     
-    
-    /* Metodo para fazer a autencicação na aplicacao */
-    public String logar(){
-        
-        SessionContext session = SessionContext.getInstance();
+    private void carregarUsuarios(){ 
         DAO dao = new DAO( Usuario.class);
-        int size = dao.listarGenerico("Usuario.logar", login, senha).size();
-        if( size == 0 ){
-            session.setAttribute("message", "Login/senha inválidos");
-            return null;
-        }else if( size >= 1 ){
-            session.setAttribute("usuario", usuario);
-            return "/sistema/usuario";
-        }else{
-            session.setAttribute("message", "Um erro desconhecido aconteceu ao Logar!");
-            return "/error/999";
+        usuarios = dao.listarGenerico("Usuario.listarTodos");
+    }
+    
+    public List<SelectItem> niveis(){
+        List<SelectItem> niveis = new ArrayList<SelectItem>();
+        niveis.add( new SelectItem(NivelUsuario.USUARIO) );
+        niveis.add( new SelectItem(NivelUsuario.ADMINISTRADOR) );
+        return niveis;
+    }
+    
+    public boolean consultarPorNome(Object value,
+            Object filter, Locale locale) {
+        String filterText = (filter == null) ? null
+                : filter.toString().trim();
+        String valueText = (value == null) ? null
+                : value.toString();
+        if (filterText == null || filterText.equals("")) {
+            return true;
         }
+        if (valueText == null) {
+            return false;
+        }
+        return valueText.matches("(?i).*" + filterText
+                + ".*");
     }
     
-    /* Metodo para fazer o Logout da aplicação */
-    public String sair() {
-        SessionContext session = SessionContext.getInstance();
-        session.encerrarSessao();
-        return "/index";
+    
+    public String gravar() {
+        DAO dao = new DAO(Usuario.class);
+        dao.adicionar(usuario);
+        usuario = new Usuario();
+        return "/sistema/usuario";
+    }
+    //@Transactional
+    public void excluir(Usuario u) {
+        DAO dao = new DAO(Usuario.class);
+        dao.excluir(u.getId());
+        usuarios.remove(u);
+        FacesMessage msg = new FacesMessage(
+                "Usuario excluído", u.getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public String editar(Usuario u) {
+        usuario = u;
+        return "/sistema/usuario_editar";
+    }
+
+    public String alterar() {
+        DAO dao = new DAO(Usuario.class);
+        dao.alterar(usuario);
+        return "/sistema/index";
+    }
+
+    public String paginaInicial() {
+        usuario = new Usuario();
+        DAO dao = new DAO(Usuario.class);
+        usuarios = dao.listarGenerico("Usuario.listarTodas");
+        return "/sistema/index";
+    }
+
+    public String paginaNovoUsuario() {
+        usuario = new Usuario();
+        return "/sistema/usuario_novo";
     }
     
-    /* Recupera as mensagens de sessão */
-    public String getMessage() {
-        SessionContext session = SessionContext.getInstance();
-        String message = (String) session.getAttribute("message");
-        return message;
+    public void onEdit(RowEditEvent event) {
+        Usuario c = (Usuario) event.getObject();
+        DAO<Usuario> dao = new DAO(Usuario.class);
+        dao.alterar(c);
+        FacesMessage msg = new FacesMessage(
+                "Usuário atualizado", c.getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCancel(RowEditEvent event) {
+        Usuario c = (Usuario) event.getObject();
+        FacesMessage msg = new FacesMessage(
+                "Atualização cancelada", c.getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }

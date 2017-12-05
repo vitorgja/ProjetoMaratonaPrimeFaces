@@ -10,7 +10,7 @@
         
         <div class="well">
             <h3>Login</h3>
-            <h:outputLabel value="#{usuarioBean.message}" styleClass="erro" />
+            <h:outputLabel value="#{loginBean.message}" styleClass="erro" />
             
            
             <h:form>
@@ -20,21 +20,21 @@
                         <h:message for="username" styleClass="erro" />
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-                            <p:inputText id="username" placeholder="Username" value="#{usuarioBean.login}"/>      
+                            <p:inputText id="username" placeholder="Username" value="#{loginBean.login}"/>      
                         </div>
                     </div>
 
                     <div class="ui-g-12 ui-md-4">
                         <h:message for="senha" styleClass="erro" />
                         <div class="ui-inputgroup">
-                            <span class="ui-inputgroup-addon">$</span>
-                            <p:inputText id="senha" placeholder="Senha"  value="#{usuarioBean.senha}"/>  
+                            <span class="ui-inputgroup-addon"><span class="ui-icon-disk"></span></span>
+                            <p:inputText  id="senha" placeholder="Senha"  value="#{loginBean.senha}"/>  
                         </div>
                     </div>
 
                     <div class="ui-g-12 ui-md-4">
                         <div class="ui-inputgroup">
-                            <p:commandButton ajax="false" icon="ui-icon-disk" value="Logar" action="#{usuarioBean.logar}"/>
+                            <p:commandButton ajax="false" icon="ui-icon-disk" value="Logar" action="#{loginBean.logar}"/>
                         </div>
                     </div>
                 </div>

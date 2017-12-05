@@ -11,18 +11,37 @@ and open the template in the editor.
     font-size: 14px;
     font-family: arial;
 }
+*{
+    box-sizing: border-box;
+}
 body{
     margin: 0;
     padding: 0;
     background-color: #ccc;
 }
-
+/*
 body header#top,
 body footer#bottom{
     padding: 3rem 5rem;
+    clear: both;
 }
-
-
+*/
+body header#top h1,body header#top p{
+    text-align: center;
+}
+/*
+nav#left, body main#content{
+    display: block;
+    padding: 2rem 5rem;
+    float: left;
+}
+nav#left{
+    width: 30%;
+}
+body main#content{
+    width: 70%;
+}
+*/
 .well {
     background: #ccc;
     border: 1px solid #ddd;

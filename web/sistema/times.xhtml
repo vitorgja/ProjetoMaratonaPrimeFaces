@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./_template_sistema.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pf="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1>Listar todos os Times</h1>
+        <h:form id="form">
+            <pf:growl id="messages" showDetail="true" />
+                <pf:dataTable value="#{maratonaBean.usuarios}" var="u"
+                              paginator="true" rows="2"
+                              rowsPerPageTemplate="2, 5, 10"
+                              paginatorPosition="top"
+                              sortMode="multiple" 
+                              filteredValue="#{maratonaBean.usuariosFiltrados}"
+                              editable="true" >
+                    <pf:ajax event="rowEdit"
+                            listener="#{maratonaBean.onEdit}"
+                            update=":form:messages" />
+                    <pf:ajax event="rowEditCancel"
+                            listener="#{maratonaBean.onCancel}"
+                            update=":form:messages" />
+                    <f:facet name="caption">Usuarios Cadastradas</f:facet>
+                    <pf:column headerText="Nome" sortBy="#{u.nome}"
+                               filterBy="#{u.nome}" 
+                               filterFunction="#{maratonaBean.consultarPorNome}">
+                        <pf:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{u.nome}" style="text-align: left"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:inputText value="#{u.nome}"/>
+                            </f:facet>
+                        </pf:cellEditor>
+                    </pf:column>
+                    <pf:column headerText="Login" sortBy="#{u.login}">
+                        <pf:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{u.login}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:inputText value="#{u.login}"/>
+                            </f:facet>
+                        </pf:cellEditor>
+                    </pf:column>
+                    <pf:column headerText="Senha">
+                        <h:outputText value="#{u.senha}"/>
+                    </pf:column>
+                    <pf:column headerText="Nivel">
+                        <h:outputText value="#{u.nivel}"/>
+                    </pf:column>
+                    <pf:column headerText="Editar">
+                        <pf:rowEditor/>
+                    </pf:column>
+                    <pf:column headerText="Excluir">
+                        <pf:commandButton ajax="true" update="@all" icon="ui-icon-trash" alt="Excluir" title="Excluir" action="#{maratonaBean.excluir(c)}" onclick="return confirm('Confirma a exclusao?')"/>
+                    </pf:column>
+                </pf:dataTable>
+                <pf:commandButton ajax="false" icon="ui-icon-circle-plus" action="#{maratonaBean.paginaNovoUsuario}"/>
+            </h:form>
+    </ui:define>
+
+</ui:composition>
