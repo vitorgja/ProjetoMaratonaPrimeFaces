@@ -10,23 +10,23 @@
         <h2>Listar todos os Instituições</h2>
         <h:form id="form">
             <pf:growl id="messages" showDetail="true" />
-                <pf:dataTable value="#{instituicaoBean.instituicoes}" var="i"
+                <pf:dataTable value="#{competicaoBean.competicoes}" var="i"
                               paginator="true" rows="2"
                               rowsPerPageTemplate="2, 5, 10"
                               paginatorPosition="top"
                               sortMode="multiple" 
-                              filteredValue="#{instituicaoBean.instituicoesFiltrados}"
+                              filteredValue="#{competicaoBean.competicoesFiltradas}"
                               editable="true" >
                     <pf:ajax event="rowEdit"
-                            listener="#{instituicaoBean.onEdit}"
+                            listener="#{competicaoBean.onEdit}"
                             update=":form:messages" />
                     <pf:ajax event="rowEditCancel"
-                            listener="#{instituicaoBean.onCancel}"
+                            listener="#{competicaoBean.onCancel}"
                             update=":form:messages" />
-                    <f:facet name="caption">Usuarios Cadastradas</f:facet>
+                    <f:facet name="caption">Competições Cadastradas</f:facet>
                     <pf:column headerText="Nome" sortBy="#{i.nome}"
                                filterBy="#{i.nome}" 
-                               filterFunction="#{instituicaoBean.consultarPorNome}">
+                               filterFunction="#{competicaoBean.consultarPorNome}">
                         <pf:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{i.nome}" style="text-align: left"/>
@@ -36,13 +36,38 @@
                             </f:facet>
                         </pf:cellEditor>
                     </pf:column>
-                    <pf:column headerText="Login" sortBy="#{i.cidade}">
+                    <pf:column headerText="Data" sortBy="#{i.data_hora}">
                         <pf:cellEditor>
                             <f:facet name="output">
-                                <h:outputText value="#{i.cidade}"/>
+                                <h:outputText value="#{i.data_hora}">
+                                    <f:convertDateTime type="date" pattern="dd/mm/yyyy" />
+                                </h:outputText>
                             </f:facet>
                             <f:facet name="input">
-                                <h:inputText value="#{i.cidade}"/>
+                                <pf:calendar id="data" value="#{competicaoBean.competicao.data_hora}" showOn="button" pattern="MM/dd/yyyy HH:mm:ss" />
+                            </f:facet>
+                        </pf:cellEditor>
+                    </pf:column>
+                    <pf:column headerText="Duração" sortBy="#{i.duracao}">
+                        <pf:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{i.duracao}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <pf:inputText value="#{i.duracao}"/>
+                            </f:facet>
+                        </pf:cellEditor>
+                    </pf:column>
+                    <pf:column headerText="Duração" sortBy="#{i.ativa}">
+                        <pf:cellEditor>
+                            <f:facet name="output">
+                                <h:outputLabel value="Ativa" />
+                                <pf:selectBooleanCheckbox value="#{i.ativa}" disabled="true"/>
+                                
+                            </f:facet>
+                            <f:facet name="input">
+                                <pf:selectBooleanCheckbox value="#{i.ativa}"/>
+                                <h:outputLabel value="Ativa"/>
                             </f:facet>
                         </pf:cellEditor>
                     </pf:column>
@@ -51,10 +76,10 @@
                         <pf:rowEditor/>
                     </pf:column>
                     <pf:column headerText="Excluir">
-                        <pf:commandButton ajax="true" update="@all" icon="ui-icon-trash" alt="Excluir" title="Excluir" action="#{instituicaoBean.excluir(i)}" onclick="return confirm('Confirma a exclusao?')"/>
+                        <pf:commandButton ajax="true" update="@all" icon="ui-icon-trash" alt="Excluir" title="Excluir" action="#{competicaoBean.excluir(i)}" onclick="return confirm('Confirma a exclusao?')"/>
                     </pf:column>
                 </pf:dataTable>
-                <pf:commandButton ajax="false" icon="ui-icon-circle-plus" action="#{instituicaoBean.paginaNovaInstituicao}"/>
+                <pf:commandButton ajax="false" icon="ui-icon-circle-plus" action="#{competicaoBean.paginaNovaCompeticao}"/>
             </h:form>
     </ui:define>
 

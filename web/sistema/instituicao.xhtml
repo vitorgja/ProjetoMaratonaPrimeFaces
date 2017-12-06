@@ -32,17 +32,17 @@
                                 <h:outputText value="#{i.nome}" style="text-align: left"/>
                             </f:facet>
                             <f:facet name="input">
-                                <h:inputText value="#{i.nome}"/>
+                                <pf:inputText value="#{i.nome}"/>
                             </f:facet>
                         </pf:cellEditor>
                     </pf:column>
-                    <pf:column headerText="Login" sortBy="#{i.cidade}">
+                    <pf:column headerText="Cidade" sortBy="#{i.cidade}">
                         <pf:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{i.cidade}"/>
                             </f:facet>
                             <f:facet name="input">
-                                <h:inputText value="#{i.cidade}"/>
+                                <pf:inputText value="#{i.cidade}"/>
                             </f:facet>
                         </pf:cellEditor>
                     </pf:column>

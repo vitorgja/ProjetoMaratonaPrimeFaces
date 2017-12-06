@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./_template_sistema.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pf="http://primefaces.org/ui">
+
+    
+    <ui:define name="content">
+        <h3>Novo Usuario</h3>
+        <h:form>
+            <h:panelGrid columns="2">
+                <pf:outputLabel value="Nome" for="nome"/>
+                <pf:inputText value="#{competicaoBean.competicao.nome}" id="nome" required="true"/>
+                
+                <pf:outputLabel for="data" value="Data" />
+                <pf:calendar id="data" value="#{competicaoBean.competicao.data_hora}" showOn="button" pattern="MM/dd/yyyy HH:mm:ss" />
+                
+                
+                <pf:outputLabel value="Duração" for="duracao"/>
+                <pf:inputText value="#{competicaoBean.competicao.duracao}" id="duracao"/>
+                
+                <pf:outputLabel value="Ativa" for="nivel"/>
+                <pf:selectBooleanCheckbox value="#{competicaoBean.competicao.ativa}" id="nivel"/>
+                               
+                                
+            </h:panelGrid>
+            <h:commandButton value="Gravar" action="#{competicaoBean.gravar()}"/>
+            <h:commandButton value="Voltar" action="#{competicaoBean.paginaInicial}" immediate="true"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

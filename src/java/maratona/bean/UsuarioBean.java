@@ -35,7 +35,7 @@ public class UsuarioBean implements Serializable {
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
     
-    private List<Usuario> usuarios = new ArrayList();
+    private List<Usuario> usuarios = new ArrayList<>();
     public List<Usuario> getUsuarios() { return usuarios; }
     public void setUsuarios(List<Usuario> usuarios) { this.usuarios = usuarios; }
     
@@ -83,6 +83,7 @@ public class UsuarioBean implements Serializable {
         DAO dao = new DAO(Usuario.class);
         dao.adicionar(usuario);
         usuario = new Usuario();
+        // carregarUsuarios();
         return "/sistema/usuario";
     }
     //@Transactional

@@ -13,9 +13,9 @@
         <h:form>
             <h:panelGrid columns="2">
                 <pf:outputLabel value="Nome" for="nome"/>
-                <h:inputText value="#{instituicaoBean.instituicao.nome}" id="nome" required="true"/>
+                <pf:inputText value="#{instituicaoBean.instituicao.nome}" id="nome" required="true"/>
                 <pf:outputLabel value="Cidade" for="cidade"/>
-                <h:inputText value="#{instituicaoBean.instituicao.cidade}" id="cidade"/>
+                <pf:inputText value="#{instituicaoBean.instituicao.cidade}" id="cidade"/>
             </h:panelGrid>
             <h:commandButton value="Gravar" action="#{instituicaoBean.gravar()}"/>
             <h:commandButton value="Voltar" action="#{instituicaoBean.paginaInicial}" immediate="true"/>
