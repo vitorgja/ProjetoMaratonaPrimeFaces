@@ -71,9 +71,17 @@ public class CompeticaoBean implements Serializable {
     
     public String gravar() {
         DAO dao = new DAO(Competicao.class);
+        // listas
+        //  alterar
+        List<Competicao> ativos = dao.listarGenerico("Competicao.listarAtiva", true);
+        for( Competicao c : ativos ) {
+            c.setAtiva(false);
+            dao.alterar(c);
+        }
+        
         dao.adicionar(competicao);
         competicao = new Competicao();
-        // carregarCompeticaos();
+        carregarCompeticoes();
         return "/sistema/competicao";
     }
     //@Transactional

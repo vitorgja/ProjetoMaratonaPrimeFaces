@@ -58,11 +58,12 @@
                             </f:facet>
                         </pf:cellEditor>
                     </pf:column>
-                    <pf:column headerText="Duração" sortBy="#{i.ativa}">
+                    <pf:column headerText="Ativa" sortBy="#{i.ativa}">
                         <pf:cellEditor>
                             <f:facet name="output">
-                                <h:outputLabel value="Ativa" />
-                                <pf:selectBooleanCheckbox value="#{i.ativa}" disabled="true"/>
+                                <h:outputLabel value="Ativa"  rendered="#{i.ativa==true? true:false}"/>
+                                <h:outputLabel value="Não Ativa"  rendered="#{i.ativa==false? true:false}"/>
+                                
                                 
                             </f:facet>
                             <f:facet name="input">
